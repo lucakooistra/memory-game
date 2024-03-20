@@ -1,6 +1,7 @@
 @import 'reset-css';
 @import './assets/fonts/stylesheet.css';
 @import './assets/scss/imports';
+@import './assets/scss/utilities';
 
 body * {
   @include text-unselectable();

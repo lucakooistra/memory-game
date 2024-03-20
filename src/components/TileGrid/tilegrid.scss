@@ -1,0 +1,42 @@
+@import "../../assets/scss/imports";
+
+.tilegrid {
+  width: rem-calc(327);
+  height: rem-calc(327);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  &__item {
+    border-radius: 50%;
+
+    &-hidden {
+      background-color: $dark-blue;
+      color: $transparent;
+    }
+
+    &-selected {
+        background-color: $yellow;
+    }
+  }
+}
+
+//4x4 grid
+.tilegrid {
+  &-4x4 {
+    @include md {
+      width: rem-calc(532);
+      height: rem-calc(532);
+    }
+  }
+
+  &__item {
+    width: rem-calc(72.53);
+    height: rem-calc(72.53);
+
+    @include md {
+      width: rem-calc(118);
+      height: rem-calc(118);
+    }
+  }
+}
