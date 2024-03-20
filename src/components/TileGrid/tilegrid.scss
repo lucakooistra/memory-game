@@ -8,7 +8,14 @@
   justify-content: space-between;
 
   &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 50%;
+    color: $white;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 1.8 ease-in-out;
 
     &-hidden {
       background-color: $dark-blue;
@@ -31,10 +38,12 @@
   }
 
   &__item {
+    font-size: rem-calc(40);
     width: rem-calc(72.53);
     height: rem-calc(72.53);
 
     @include md {
+      font-size: rem-calc(56);
       width: rem-calc(118);
       height: rem-calc(118);
     }
