@@ -23,26 +23,26 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export const TileIcons = () => {
-        [
-            faAnchor,
-            faAnkh,
-            faBiohazard,
-            faBinoculars,
-            faGolfBall,
-            faBowlingBall,
-            faBaseballBall,
-            faFootballBall,
-            faBasketballBall,
-            faVolleyballBall,
-            faBell,
-            faBrain,
-            faBurn,
-            faCat,
-            faCircle,
-            faCog,
-            faCogs,
-            faDog,
-            faDragon,
-            faEgg,
-          ].map((definition) => <FontAwesomeIcon icon={definition} />)
+  return [
+    faAnchor,
+    faAnkh,
+    faBiohazard,
+    faBinoculars,
+    faGolfBall,
+    faBowlingBall,
+    faBaseballBall,
+    faFootballBall,
+    faBasketballBall,
+    faVolleyballBall,
+    faBell,
+    faBrain,
+    faBurn,
+    faCat,
+    faCircle,
+    faCog,
+    faCogs,
+    faDog,
+    faDragon,
+    faEgg,
+  ].map((definition) => <FontAwesomeIcon icon={definition} />);
 };
