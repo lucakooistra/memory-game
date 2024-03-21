@@ -1,6 +1,8 @@
+import { TileState } from "./types";
+
 type TileProps = {
   onClick: () => void;
-  visible: boolean;
+  visible: TileState;
   icons: JSX.Element[];
 };
 
@@ -10,7 +12,7 @@ export function Tile({ onClick, visible, icons }: TileProps) {
       <li
         onClick={onClick}
         className={`tilegrid__item ${
-          visible ? "tilegrid__item-selected" : "tilegrid__item-hidden"
+          visible === 'selected' ? "tilegrid__item-selected" : "tilegrid__item-hidden"
         }`}
       >
         {icons.map((icon, index) => (
