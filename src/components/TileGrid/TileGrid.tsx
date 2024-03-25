@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Tile } from "./Tile";
-import { TileState } from "./types";
+import { TileState, TileType } from "./types";
 import { Chance } from "chance";
 import { TileIcons } from "../TileIcons/TileIcons";
 import "./tilegrid.scss";
@@ -9,11 +9,13 @@ export function TileGrid() {
   const [tileVisibility, setTileVisibility] = useState<TileState[]>(
     Array(16).fill("hidden")
   ); // Array van 16 tegels, allemaal onzichtbaar in het begin
+
   const [iconPairs, setIconPairs] = useState<JSX.Element[]>([]);
+  const [tiles, setTiles] = useState<TileType[]>(InitiateTiles(iconPairs));
+
+  console.log(tiles);
 
   const handleTileClick = (id: number) => {
-    const iconName = iconPairs[id].props.icon.iconName;
-    console.log(iconName)
     const newVisibility = [...tileVisibility]; // Maak een kopie van de zichtbaarheidsarray
 
     // Set de zichtbaarheid van de huidige tegel naar "selected"
@@ -46,6 +48,36 @@ export function TileGrid() {
 
     setIconPairs(mixedIconPairs);
   }, []);
+
+  useEffect(() => {
+    // Roep InitiateTiles opnieuw aan wanneer iconPairs verandert
+    setTiles(InitiateTiles(iconPairs));
+  }, [iconPairs]);
+
+  function InitiateTiles(iconPairs: JSX.Element[]): TileType[] {
+    const tileTypes: TileType[] = [];
+
+    if (!iconPairs || iconPairs.length === 0) {
+      // Als iconPairs niet gedefinieerd is of leeg is, retourneer een lege array
+      return tileTypes;
+    }
+
+    const repeatCount = 16;
+
+    for (let i = 0; i < repeatCount; i++) {
+      // Controleer of het huidige element in de iconPairs array gedefinieerd is
+      if (iconPairs[i]) {
+        // Haal de iconName prop uit het i-de element in de iconPairs array
+        const iconName = iconPairs[i].props.icon.iconName;
+
+        tileTypes.push({ state: "hidden", iconName });
+      } else {
+        // Als het huidige element niet gedefinieerd is, voeg een standaard object toe aan tileTypes
+        tileTypes.push({ state: "hidden", iconName: "defaultIcon" });
+      }
+    }
+    return tileTypes;
+  }
 
   return (
     <>
