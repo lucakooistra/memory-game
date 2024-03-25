@@ -1,19 +1,19 @@
-import { TileState } from "./types";
+import { TileType } from "./types";
 
 type TileProps = {
   onClick: () => void;
-  visible: TileState;
+  visible: TileType;
   icons: JSX.Element[];
 };
 
-export function Tile({ onClick, visible, icons }: TileProps) {
+export function Tile({ onClick, visible, icons}: TileProps) {
   return (
     <>
       <li
         onClick={onClick}
         className={`tilegrid__item ${
           (() => {
-            switch (visible) {
+            switch (visible?.state) {
               case 'selected':
                 return "tilegrid__item-selected";
               case 'hidden':
