@@ -12,7 +12,18 @@ export function Tile({ onClick, visible, icons }: TileProps) {
       <li
         onClick={onClick}
         className={`tilegrid__item ${
-          visible === 'selected' ? "tilegrid__item-selected" : "tilegrid__item-hidden"
+          (() => {
+            switch (visible) {
+              case 'selected':
+                return "tilegrid__item-selected";
+              case 'hidden':
+                return "tilegrid__item-hidden";
+              case 'paired':
+                return "tilegrid__item-paired";
+              default:
+                return "";
+            }
+          })()
         }`}
       >
         {icons.map((icon, index) => (
