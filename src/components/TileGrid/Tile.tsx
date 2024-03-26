@@ -1,34 +1,31 @@
-import { TileType } from "./types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconName, TileType } from "./types";
+import { iconsType } from "./types";
 
 type TileProps = {
   onClick: () => void;
-  visible: TileType;
-  icons: JSX.Element[];
+  tile: TileType;
 };
 
-export function Tile({ onClick, visible, icons}: TileProps) {
+export function Tile({ onClick, tile }: TileProps) {
   return (
     <>
       <li
         onClick={onClick}
-        className={`tilegrid__item ${
-          (() => {
-            switch (visible?.state) {
-              case 'selected':
-                return "tilegrid__item-selected";
-              case 'hidden':
-                return "tilegrid__item-hidden";
-              case 'paired':
-                return "tilegrid__item-paired";
-              default:
-                return "";
-            }
-          })()
-        }`}
+        className={`tilegrid__item ${(() => {
+          switch (tile?.state) {
+            case "selected":
+              return "tilegrid__item-selected";
+            case "hidden":
+              return "tilegrid__item-hidden";
+            case "paired":
+              return "tilegrid__item-paired";
+            default:
+              return "";
+          }
+        })()}`}
       >
-        {icons.map((icon, index) => (
-          <div key={index}>{icon}</div>
-        ))}
+        <FontAwesomeIcon icon={iconsType[tile.iconName]} />
       </li>
     </>
   );
