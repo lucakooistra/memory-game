@@ -1,21 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Tile } from "./Tile";
-import { TileType } from "./types";
-import { Chance } from "chance";
-import { TileIcons } from "../TileIcons/TileIcons";
+import { IconName, TileType } from "./types";
+import { iconsPairs } from "../TileIcons/TileIcons";
 import "./tilegrid.scss";
 
-export function TileGrid() {
-  const [iconPairs, setIconPairs] = useState<JSX.Element[]>([]);
-  const [tiles, setTiles] = useState<TileType[]>(InitiateTiles(iconPairs));
+type tileGridProps = {
+  setCounter : () => void;
+}
 
-  const checkPairsAndReset = (tiles: TileType[]): TileType[] => {
+export function TileGrid({setCounter}: tileGridProps) {
+
+  console.log(iconsPairs)
+  
+  const [tiles, setTiles] = useState<TileType[]>(() =>InitiateTiles(iconsPairs));
+
+
+  const checkPairsAndReset = (tiles: TileType[]) => {
     const selectedTiles = tiles.filter((tile) => tile.state === "selected");
 
     if (selectedTiles.length === 2) {
       const [firstTile, secondTile] = selectedTiles;
-      if (firstTile.iconName === secondTile.iconName) {
-        setTimeout(() => {
+      setTimeout(() => {
+        if (firstTile.iconName === secondTile.iconName) {
           setTiles(
             tiles.map((tile) => {
               if (tile.state === "selected") {
@@ -24,9 +30,7 @@ export function TileGrid() {
               return tile;
             })
           );
-        }, 650);
-      } else {
-        setTimeout(() => {
+        } else {
           setTiles(
             tiles.map((tile) => {
               if (tile.state === "selected") {
@@ -35,10 +39,9 @@ export function TileGrid() {
               return tile;
             })
           );
-        }, 650);
-      }
+        }
+      }, 650);
     }
-    return tiles;
   };
 
   const handleTileClick = (id: number) => {
@@ -53,27 +56,13 @@ export function TileGrid() {
       newVisibility[id].state = "selected";
       setTiles(newVisibility); // Werk de staat bij
 
-      const updateTiles = checkPairsAndReset(newVisibility);
-      setTiles(updateTiles);
+      checkPairsAndReset(newVisibility);
     } else {
       return;
     }
   };
 
-  useEffect(() => {
-    const icons = TileIcons();
-    const iconsSixteen = icons.slice(0, 8);
-    const iconPairs = iconsSixteen.concat(iconsSixteen);
-    const mixedIconPairs = Chance().shuffle(iconPairs);
-
-    setIconPairs(mixedIconPairs);
-  }, []);
-
-  useEffect(() => {
-    setTiles(InitiateTiles(iconPairs));
-  }, [iconPairs]);
-
-  function InitiateTiles(iconPairs: JSX.Element[]): TileType[] {
+  function InitiateTiles(iconPairs: IconName[]): TileType[] {
     const tileTypes: TileType[] = [];
 
     if (!iconPairs || iconPairs.length === 0) {
@@ -87,12 +76,9 @@ export function TileGrid() {
       // Controleer of het huidige element in de iconPairs array gedefinieerd is
       if (iconPairs[i]) {
         // Haal de iconName prop uit het i-de element in de iconPairs array
-        const iconName = iconPairs[i].props.icon.iconName;
+        const iconName = iconPairs[i]
 
         tileTypes.push({ state: "hidden", iconName });
-      } else {
-        // Als het huidige element niet gedefinieerd is, voeg een standaard object toe aan tileTypes
-        tileTypes.push({ state: "hidden", iconName: "defaultIcon" });
       }
     }
     return tileTypes;
@@ -106,8 +92,8 @@ export function TileGrid() {
             <Tile
               key={id}
               onClick={() => handleTileClick(id)} // Gebruik de nieuwe handleClick-functie
-              visible={tiles[id]} // Geef de zichtbaarheid door aan de tegel
-              icons={[iconPairs[id]]} // Geef elk icoonpaar door aan een tegel
+              tile={tiles[id]} // Geef de zichtbaarheid door aan de tegel
+              setCounter={setCounter}
             />
           ))}
         </ul>

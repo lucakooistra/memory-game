@@ -1,48 +1,27 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAnchor,
-  faAnkh,
-  faBiohazard,
-  faBinoculars,
-  faGolfBall,
-  faBowlingBall,
-  faBaseballBall,
-  faFootballBall,
-  faBasketballBall,
-  faVolleyballBall,
-  faBell,
-  faBrain,
-  faBurn,
-  faCat,
-  faCircle,
-  faCog,
-  faCogs,
-  faDog,
-  faDragon,
-  faEgg,
-} from "@fortawesome/free-solid-svg-icons";
+import { IconName } from "../TileGrid/types";
+import { iconArray } from "./utils/utils";
 
-export const TileIcons = () => {
-  return [
-    faAnchor,
-    faAnkh,
-    faBiohazard,
-    faBinoculars,
-    faGolfBall,
-    faBowlingBall,
-    faBaseballBall,
-    faFootballBall,
-    faBasketballBall,
-    faVolleyballBall,
-    faBell,
-    faBrain,
-    faBurn,
-    faCat,
-    faCircle,
-    faCog,
-    faCogs,
-    faDog,
-    faDragon,
-    faEgg,
-  ].map((definition) => <FontAwesomeIcon icon={definition} />);
-};
+const icons: IconName[] = [
+  "anchor",
+  "baseBall",
+  "basketball",
+  "bell",
+  "binoculars",
+  "bowlingball",
+  "brain",
+  "burn",
+  "cat",
+  "circle",
+  "cog",
+  "cogs",
+  "dog",
+  "dragon",
+  "egg",
+  "football",
+  "ghost",
+  "golfball",
+  "umbrella",
+  "volleyball",
+];
+
+export const iconsPairs = iconArray(icons)

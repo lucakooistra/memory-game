@@ -1,0 +1,30 @@
+@import "../../assets/scss/imports";
+
+.footer {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 50px;
+    justify-content: space-around;
+    max-width: 150px;
+
+    &-title {
+      color: $dark-gray;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    &-attribute {
+        color: $dark-blue;
+        font-size: 24px;
+        font-weight: 700;
+    }
+  }
+}
