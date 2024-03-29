@@ -1,17 +1,22 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconName, TileType } from "./types";
+import { TileType } from "./types";
 import { iconsType } from "./types";
 
 type TileProps = {
   onClick: () => void;
+  setCounter: () => void;
   tile: TileType;
 };
 
-export function Tile({ onClick, tile }: TileProps) {
+export function Tile({ onClick, setCounter, tile }: TileProps) {
+  function handleClick(event: React.MouseEvent<HTMLLIElement, MouseEvent>) {
+    onClick();
+    setCounter();
+  }
   return (
     <>
       <li
-        onClick={onClick}
+        onClick={handleClick}
         className={`tilegrid__item ${(() => {
           switch (tile?.state) {
             case "selected":

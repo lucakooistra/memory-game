@@ -1,10 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Tile } from "./Tile";
 import { IconName, TileType } from "./types";
 import { iconsPairs } from "../TileIcons/TileIcons";
 import "./tilegrid.scss";
 
-export function TileGrid() {
+type tileGridProps = {
+  setCounter : () => void;
+}
+
+export function TileGrid({setCounter}: tileGridProps) {
 
   console.log(iconsPairs)
   
@@ -58,10 +62,6 @@ export function TileGrid() {
     }
   };
 
-  // useEffect(() => {
-  //   setTiles(InitiateTiles(iconPairs));
-  // }, [iconPairs]);
-
   function InitiateTiles(iconPairs: IconName[]): TileType[] {
     const tileTypes: TileType[] = [];
 
@@ -93,6 +93,7 @@ export function TileGrid() {
               key={id}
               onClick={() => handleTileClick(id)} // Gebruik de nieuwe handleClick-functie
               tile={tiles[id]} // Geef de zichtbaarheid door aan de tegel
+              setCounter={setCounter}
             />
           ))}
         </ul>
